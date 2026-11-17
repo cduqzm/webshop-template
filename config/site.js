@@ -13,7 +13,8 @@ window.SITE = {
   languages: ["nl", "en"],
 
   theme: {
-    preset: "atelier", // "atelier" | "market" | "workshop"
+    // atelier | market | workshop | nocturne | bloom | corner | gallery (compare them in presets.html)
+    preset: "atelier",
     // Optional overrides. Leave null to use the preset's own choices.
     accent: null, // e.g. "#9b4a26". The console warns if it's too light to read as text.
     accentText: null, // optional darker version of the accent for text, when the accent itself is light

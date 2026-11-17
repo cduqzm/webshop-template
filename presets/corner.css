@@ -1,0 +1,695 @@
+/*
+ * CORNER: the friendly corner shop. Young Serif (chunky, warm) for display, Rethink Sans for text.
+ * Cream, cocoa, tomato and mustard; a scalloped awning under the header, prices on round stickers,
+ * opening hours on a chalkboard.
+ * For bakeries, cafés, delis, ice cream shops, local food shops.
+ */
+
+@font-face {
+  font-family: "Young Serif";
+  src: url("../assets/fonts/young-serif.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rethink Sans";
+  src: url("../assets/fonts/rethink-sans.woff2") format("woff2");
+  font-weight: 400 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --paper: #fff8ec;
+  --paper-2: #f7ead3;
+  --ink: #2d1f16; /* cocoa */
+  --ink-soft: #6a5444; /* 6.6:1 on paper */
+  --accent: #c8442b; /* tomato: fills */
+  --accent-ink: #a8361f; /* tomato as text, 5.7:1 */
+  --on-accent: #fff;
+  --mustard: #f2b84b;
+  --line: rgb(45 31 22 / 0.15);
+  --line-strong: rgb(45 31 22 / 0.4);
+  --todo: #bfe6ff;
+
+  --font-display: "Young Serif", "Cooper", Georgia, serif;
+  --font-text: "Rethink Sans", "Avenir Next", Arial, sans-serif;
+
+  --radius: 0.9rem;
+  --header-h: 4.5rem;
+
+  --tone-wax: #f3e2c4;
+  --tone-ochre: #eab665;
+  --tone-clay: #d9876a;
+  --tone-moss: #93a06a;
+  --tone-ash: #d8ccbb;
+  --tone-soot: #4a3428;
+}
+
+::selection {
+  background: var(--mustard);
+  color: var(--ink);
+}
+
+/* ---------- type ---------- */
+.section-title,
+.page-title,
+.pdp__name,
+.wordmark,
+.opening__line,
+.index__name,
+.story__quote,
+.site-footer__mark,
+.drawer__title,
+.checkout__title,
+.contact__form-title,
+.about__line,
+.card__name,
+.menu__nav a,
+.pricelist__title,
+.posts__title,
+.empty-state__text {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+em {
+  font-style: normal;
+  color: var(--accent-ink);
+}
+.section-title {
+  font-size: var(--step-3);
+  line-height: 1.05;
+}
+.price {
+  font-family: var(--font-display);
+}
+.button {
+  border-radius: 999px;
+  font-weight: 700;
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.button:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+.arrow-link {
+  font-weight: 700;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--mustard);
+}
+
+/* ---------- header with a scalloped awning ---------- */
+.site-header {
+  border-bottom: 0;
+  background: var(--paper);
+}
+.site-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 12px;
+  background: radial-gradient(circle at 12px 0, var(--accent) 11.5px, transparent 12px) 0 0 / 24px 12px repeat-x;
+  pointer-events: none;
+}
+.site-header__inner {
+  border-bottom: 6px solid var(--accent);
+}
+.wordmark {
+  font-size: 1.75rem;
+}
+.site-nav,
+.site-header__tools {
+  font-weight: 600;
+}
+.site-nav a {
+  text-decoration-thickness: 3px;
+  text-decoration-color: var(--mustard);
+}
+.cart-button {
+  padding-inline: 1rem;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+}
+.cart-button.has-items {
+  background: var(--accent);
+}
+
+.ph__label {
+  font-weight: 600;
+}
+
+/* ---------- home: opening ---------- */
+.masthead-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 2rem 0.5rem;
+  font-weight: 600;
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+}
+.opening__grid {
+  display: grid;
+  gap: 1.5rem var(--gap);
+  padding-top: 0.5rem;
+}
+.opening__media .media {
+  border-radius: 1.5rem;
+}
+.opening__line {
+  order: -1;
+  font-size: clamp(2.75rem, 1.4rem + 5.4vw, 6.5rem);
+  line-height: 1;
+}
+.opening__aside {
+  position: relative;
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+  align-content: start;
+  padding: 1.75rem;
+  background: var(--mustard);
+  border-radius: 1.5rem;
+}
+.opening__lead {
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+.opening__aside .status {
+  font-weight: 700;
+}
+.status.is-open .status__dot {
+  background: #2f8f4e;
+  border-color: #2f8f4e;
+}
+@media (min-width: 56rem) {
+  .opening__grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-rows: auto auto;
+  }
+  .opening__line {
+    grid-column: 1 / 10;
+  }
+  .opening__media {
+    grid-column: 1 / 9;
+    grid-row: 2;
+  }
+  .opening__media .media {
+    aspect-ratio: 4 / 3;
+  }
+  /* The note card leans into the photo, like a sign taped to the window. */
+  .opening__aside {
+    grid-column: 8 / 13;
+    grid-row: 2;
+    align-self: end;
+    margin-bottom: 3rem;
+    transform: rotate(-2deg);
+  }
+}
+
+/* ---------- home: categories as big chips ---------- */
+.index {
+  padding-top: var(--section);
+}
+.index .section-title {
+  margin-bottom: 1.5rem;
+}
+.index__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.index__row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 4rem;
+  padding: 0.75rem 1.5rem 0.75rem 0.85rem;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background-color var(--t) var(--ease), color var(--t) var(--ease);
+}
+.index__num {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background: var(--mustard);
+  font-weight: 700;
+  font-size: 0.8125rem;
+}
+.index__name {
+  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem);
+  line-height: 1;
+}
+.index__note {
+  display: none;
+}
+.index__count {
+  font-weight: 600;
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+}
+.index__row:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+.index__row:hover .index__count {
+  color: inherit;
+}
+
+/* ---------- home: featured, prices on stickers ---------- */
+.featured {
+  padding-top: var(--section);
+}
+.featured__head {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+.featured__note {
+  max-width: 32rem;
+  color: var(--ink-soft);
+}
+.featured__all {
+  justify-self: start;
+}
+@media (min-width: 56rem) {
+  .featured__head {
+    grid-template-columns: 1fr 1fr auto;
+    align-items: end;
+    gap: 2rem;
+  }
+}
+.featured__grid,
+.related__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem var(--gap);
+}
+@media (min-width: 56rem) {
+  .featured__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .featured__grid .card:first-child {
+    grid-row: span 2;
+  }
+  .featured__grid .card:first-child .card__media,
+  .featured__grid .card:first-child .card__media .media {
+    height: 100%;
+  }
+  /* Fill the tall slot instead of keeping 4:5 (which would make it wider than its column). */
+  .featured__grid .card:first-child .card__media .media {
+    aspect-ratio: auto;
+    min-height: 100%;
+  }
+  .featured__grid .card:first-child {
+    display: flex;
+    flex-direction: column;
+  }
+  .featured__grid .card:first-child .card__media {
+    flex: 1;
+  }
+  .related__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+.card .media {
+  border-radius: 1.25rem;
+}
+.card__body {
+  position: static;
+  padding-top: 0.75rem;
+}
+.card__name {
+  font-size: 1.3125rem;
+  line-height: 1.15;
+}
+/* The price sits on a round sticker over the photo's corner. */
+.card__meta {
+  display: block;
+}
+.card .price-block {
+  position: absolute;
+  right: -0.4rem;
+  top: -0.4rem;
+  z-index: 1;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  width: 4.75rem;
+  height: 4.75rem;
+  padding: 0.4rem;
+  border-radius: 50%;
+  background: var(--mustard);
+  color: var(--ink);
+  text-align: center;
+  line-height: 1.05;
+  font-size: 1.0625rem;
+  transform: rotate(8deg);
+}
+.card .price-block.is-sale {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.card .price-block.is-sale .price {
+  color: inherit;
+}
+.card .price-block .price--was {
+  margin: 0;
+  font-size: 0.75rem;
+  color: inherit;
+  opacity: 0.85;
+}
+.price-block__from {
+  font-family: var(--font-text);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: inherit;
+}
+.card__note {
+  display: block;
+  margin-top: 0.2rem;
+  font-weight: 700;
+  font-size: var(--step--1);
+  color: var(--accent-ink);
+}
+.card.is-soldout .card__note {
+  color: var(--ink-soft);
+}
+.card__flag {
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  background: var(--paper);
+  font-weight: 700;
+  font-size: 0.8125rem;
+}
+
+/* ---------- home: story ---------- */
+.story {
+  display: grid;
+  gap: 2rem var(--gap);
+  margin-top: var(--section);
+  padding: clamp(1.5rem, 4vw, 3rem);
+  width: calc(100% - var(--gutter) * 2);
+  background: var(--paper-2);
+  border-radius: 1.5rem;
+}
+.story__media .media {
+  border-radius: 1rem;
+}
+.story__text {
+  display: grid;
+  gap: 1.25rem;
+  justify-items: start;
+  align-content: center;
+  max-width: 36rem;
+}
+.story__quote {
+  font-size: var(--step-3);
+  line-height: 1.1;
+}
+.story__body {
+  display: grid;
+  gap: 1rem;
+  font-size: 1.0625rem;
+}
+.story__signature {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  color: var(--accent-ink);
+}
+@media (min-width: 56rem) {
+  .story {
+    grid-template-columns: 5fr 7fr;
+    column-gap: 3rem;
+  }
+}
+
+/* ---------- home: visit with a chalkboard ---------- */
+.visit {
+  padding-top: var(--section);
+}
+.visit .section-title {
+  font-size: var(--step-4);
+  margin-bottom: 2rem;
+}
+.visit__grid {
+  display: grid;
+  gap: 1.5rem var(--gap);
+}
+.visit__col {
+  padding: 1.5rem;
+  border: 2px solid var(--ink);
+  border-radius: 1.25rem;
+}
+.visit__label {
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+  font-size: var(--step--1);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.visit__value,
+.visit__list a {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  line-height: 1.35;
+}
+.visit__value {
+  margin-bottom: 0.5rem;
+}
+.visit__list a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.5rem;
+}
+/* The hours column is the chalkboard. */
+.visit__col:has(.hours) {
+  background: #2b2b27;
+  border-color: #2b2b27;
+  color: #f3eee2;
+  --ink-soft: #c9c3b4;
+  --line: rgb(243 238 226 / 0.18);
+}
+.hours {
+  width: 100%;
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+}
+.hours th,
+.hours td {
+  padding: 0.3rem 0;
+  border-bottom: 1px dashed var(--line);
+  text-align: left;
+  font-weight: 400;
+}
+.hours td {
+  text-align: right;
+}
+.hours th::first-letter {
+  text-transform: uppercase;
+}
+.hours .is-closed {
+  color: var(--ink-soft);
+}
+.hours .is-today th,
+.hours .is-today td {
+  color: var(--mustard);
+}
+.visit__note {
+  margin-top: 1.5rem;
+  max-width: 36rem;
+  font-weight: 500;
+}
+@media (min-width: 56rem) {
+  .visit__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ---------- product page ---------- */
+.pdp {
+  display: grid;
+  gap: 1.5rem;
+  padding-top: 1.5rem;
+}
+.pdp__info {
+  display: grid;
+  gap: 1.25rem;
+  align-content: start;
+}
+.gallery__track,
+.gallery__slide .media {
+  border-radius: 1.5rem;
+}
+.pdp__name {
+  font-size: var(--step-4);
+  line-height: 1;
+}
+.pdp__price {
+  justify-self: start;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  background: var(--mustard);
+  font-size: var(--step-1);
+}
+.pdp__summary {
+  font-size: 1.125rem;
+}
+.pdp__dispatch {
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+  padding-bottom: 1.25rem;
+  border-bottom: 2px dashed var(--line-strong);
+}
+.variant {
+  border-radius: 999px;
+  border-width: 2px;
+  font-weight: 600;
+}
+.qty {
+  border-radius: 999px;
+  border-width: 2px;
+}
+.buy__stock {
+  font-weight: 700;
+}
+.gallery__thumb .media {
+  border-radius: 0.75rem;
+}
+@media (min-width: 56rem) {
+  .pdp {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--gap);
+    padding-top: 2.5rem;
+  }
+  .pdp__gallery {
+    grid-column: 1 / 8;
+  }
+  .gallery__thumbs {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 0.75rem;
+  }
+  .gallery__thumb {
+    width: 4.5rem;
+  }
+  .gallery__count {
+    display: none;
+  }
+  .pdp__info {
+    grid-column: 8 / 13;
+    position: sticky;
+    top: calc(var(--header-h) + 2.5rem);
+  }
+}
+.gallery__count {
+  border-radius: 999px;
+  font-weight: 600;
+}
+.related {
+  padding-top: var(--section);
+}
+.related .section-title {
+  margin-bottom: 2rem;
+}
+
+/* ---------- pages ---------- */
+.shop__bar {
+  border: 0;
+}
+.filter {
+  padding: 0.4rem 1rem;
+  border: 2px solid var(--line-strong);
+  border-radius: 999px;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+.shop__filters {
+  gap: 0.5rem;
+}
+.filter[aria-pressed="true"] {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+}
+.filter[aria-pressed="true"] .filter__name {
+  text-decoration: none;
+}
+.checkout {
+  background: var(--paper-2);
+  border-radius: 1.5rem;
+}
+.choice {
+  border-radius: 999px;
+}
+.not-found__code {
+  color: var(--accent);
+}
+
+/* ---------- drawer, menu, footer ---------- */
+.drawer__panel {
+  border-left: 6px solid var(--accent);
+}
+.line__media .media {
+  border-radius: 0.75rem;
+}
+.line__name {
+  font-family: var(--font-display);
+}
+.menu__panel {
+  background: var(--paper);
+}
+.site-footer {
+  position: relative;
+  --paper: #2d1f16;
+  --paper-2: #3a2a1f;
+  --ink: #fff8ec;
+  --ink-soft: #d9c9b4;
+  --line: rgb(255 248 236 / 0.18);
+  --line-strong: rgb(255 248 236 / 0.45);
+  --accent: #f2b84b;
+  --accent-ink: #f2b84b;
+  margin-top: calc(var(--section) + 14px);
+  background: var(--paper);
+  color: var(--ink);
+  border-top: 0;
+}
+/* Scallops along the top of the footer, the awning repeated. */
+.site-footer::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 100%;
+  height: 12px;
+  max-width: none;
+  padding: 0;
+  background: radial-gradient(circle at 12px 12px, #2d1f16 11.5px, transparent 12px) 0 0 / 24px 12px repeat-x;
+}
+.site-footer mark.todo {
+  color: #2d1f16;
+}
+.site-footer__made {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  line-height: 1.15;
+}
+.site-footer__mark {
+  font-size: clamp(3.5rem, 16vw, 16rem);
+  line-height: 0.9;
+  color: var(--mustard);
+  letter-spacing: -0.03em;
+}

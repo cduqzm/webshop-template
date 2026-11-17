@@ -1,0 +1,626 @@
+/*
+ * NOCTURNE: dark and moody. Bodoni Moda (high contrast, with optical sizes) for display,
+ * Hanken Grotesk for text, brass for accents. Roman numerals, staggered cards, outlined buttons.
+ * For barbers, tattoo studios, bars, wine shops, record stores.
+ */
+
+@font-face {
+  font-family: "Bodoni Moda";
+  src: url("../assets/fonts/bodoni-moda.woff2") format("woff2");
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Bodoni Moda";
+  src: url("../assets/fonts/bodoni-moda-italic.woff2") format("woff2");
+  font-weight: 400 900;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Hanken Grotesk";
+  src: url("../assets/fonts/hanken-grotesk.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: dark;
+  --paper: #13110e;
+  --paper-2: #1f1b17;
+  --ink: #ece4d6;
+  --ink-soft: #a89e8e; /* 7.4:1 on paper */
+  --accent: #c9a45c; /* brass, 8.4:1 on paper */
+  --on-accent: #13110e;
+  --line: rgb(236 228 214 / 0.13);
+  --line-strong: rgb(236 228 214 / 0.38);
+  --todo: #f2d26b;
+
+  --font-display: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --font-text: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+
+  --header-h: 4.5rem;
+
+  --tone-wax: #4a4036;
+  --tone-ochre: #6b5530;
+  --tone-clay: #5c3a2e;
+  --tone-moss: #3a4033;
+  --tone-ash: #3d3a36;
+  --tone-soot: #222019;
+
+  font-optical-sizing: auto;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+mark.todo {
+  color: #13110e;
+}
+dialog::backdrop {
+  background: rgb(0 0 0 / 0.65);
+}
+/* On dark tones every placeholder caption is light. */
+.media--ph,
+.media--ph[data-tone] {
+  --ph-ink: #e6dccb;
+}
+
+/* ---------- type ---------- */
+.section-title,
+.page-title,
+.pdp__name,
+.wordmark,
+.opening__line,
+.index__name,
+.story__quote,
+.site-footer__mark,
+.drawer__title,
+.checkout__title,
+.contact__form-title,
+.about__line,
+.card__name,
+.menu__nav a,
+.pricelist__title,
+.posts__title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+em {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--accent);
+}
+.section-title {
+  font-size: var(--step-3);
+  line-height: 1;
+}
+/* Small caps-ish labels with wide tracking: the "menu card" voice. */
+.kicker,
+.field-label,
+.visit__label,
+.masthead-line,
+.site-footer h2,
+.index__count,
+.card__note,
+.card__flag,
+.about__kicker {
+  font-family: var(--font-text);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+.price {
+  font-family: var(--font-display);
+  font-weight: 500;
+}
+
+.button {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+.button:hover {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.button:disabled {
+  border-color: var(--line);
+}
+.arrow-link {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-decoration-color: var(--accent);
+}
+
+/* ---------- header ---------- */
+.site-header {
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(6px);
+}
+.wordmark {
+  font-size: 1.625rem;
+  font-style: italic;
+}
+.site-nav,
+.site-header__tools {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+.site-nav a {
+  text-decoration-color: var(--accent);
+}
+.cart-button.has-items .cart-button__count {
+  color: var(--accent);
+}
+
+.ph__label {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.9375rem;
+}
+
+/* ---------- home: opening ---------- */
+.masthead-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 1rem;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-soft);
+}
+.opening__grid {
+  display: grid;
+  gap: 2rem var(--gap);
+  padding-top: 2rem;
+}
+.opening__line {
+  order: -1;
+  font-size: clamp(2.75rem, 1.2rem + 6vw, 7.5rem);
+  font-weight: 450;
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+}
+.opening__line em {
+  font-weight: 400;
+}
+.opening__aside {
+  display: grid;
+  gap: 1.25rem;
+  justify-items: start;
+  align-content: start;
+  max-width: 28rem;
+  padding-left: 1.25rem;
+  border-left: 1px solid var(--accent);
+}
+.opening__lead {
+  font-size: 1.0625rem;
+  color: var(--ink-soft);
+}
+.opening__aside .status {
+  font-size: var(--step--1);
+}
+@media (min-width: 56rem) {
+  .opening__grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-rows: auto 1fr;
+  }
+  .opening__line {
+    grid-column: 1 / 8;
+    grid-row: 1;
+    position: relative;
+    z-index: 1;
+  }
+  .opening__aside {
+    grid-column: 1 / 6;
+    grid-row: 2;
+    align-self: end;
+  }
+  .opening__media {
+    grid-column: 7 / 13;
+    grid-row: 1 / 3;
+  }
+  .opening__media .media {
+    aspect-ratio: 3 / 4;
+  }
+}
+
+/* ---------- home: category index with roman numerals ---------- */
+.index {
+  padding-top: var(--section);
+  text-align: center;
+}
+.index .section-title {
+  margin-bottom: 2.5rem;
+}
+.index__list {
+  display: grid;
+  gap: 0;
+  max-width: 48rem;
+  margin-inline: auto;
+}
+.index__row {
+  display: grid;
+  justify-items: center;
+  gap: 0.35rem;
+  padding-block: 1.5rem;
+  border-top: 1px solid var(--line);
+  text-decoration: none;
+}
+.index__list li:last-child .index__row {
+  border-bottom: 1px solid var(--line);
+}
+.index__num {
+  font-size: 0;
+}
+.index__num::before {
+  content: counter(list-item, upper-roman);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--accent);
+}
+.index__name {
+  font-size: clamp(2.25rem, 1.4rem + 3.6vw, 4.5rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1;
+  transition: color var(--t) var(--ease);
+}
+.index__note {
+  color: var(--ink-soft);
+}
+.index__count {
+  color: var(--ink-soft);
+}
+.index__row:hover .index__name {
+  color: var(--accent);
+}
+
+/* ---------- home: featured, staggered ---------- */
+.featured {
+  padding-top: var(--section);
+}
+.featured__head {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+.featured__note {
+  max-width: 30rem;
+  color: var(--ink-soft);
+}
+.featured__all {
+  justify-self: start;
+}
+.featured__grid,
+.related__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3rem var(--gap);
+}
+@media (min-width: 56rem) {
+  .featured__head {
+    grid-template-columns: 1fr 1fr auto;
+    align-items: end;
+    gap: 2rem;
+  }
+  .featured__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: calc(var(--gap) * 2.5);
+  }
+  .featured__grid .card:nth-child(3n + 2) {
+    margin-top: 5rem;
+  }
+  .featured__grid .card:nth-child(3n + 3) {
+    margin-top: 2.5rem;
+  }
+  .related__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.card__body {
+  display: grid;
+  gap: 0.3rem;
+  padding-top: 1rem;
+  text-align: center;
+}
+.card__name {
+  font-size: 1.375rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.15;
+}
+.card__meta {
+  display: grid;
+  gap: 0.3rem;
+  justify-items: center;
+}
+.card .price-block {
+  color: var(--accent);
+  font-size: 1.0625rem;
+}
+.card .price--was {
+  color: var(--ink-soft);
+}
+.card__note {
+  color: var(--ink-soft);
+}
+.card__flag {
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.3rem 0.6rem;
+  background: var(--paper);
+  color: var(--accent);
+}
+
+/* ---------- home: story ---------- */
+.story {
+  display: grid;
+  gap: 2rem var(--gap);
+  padding-top: var(--section);
+}
+.story__text {
+  display: grid;
+  gap: 1.25rem;
+  justify-items: start;
+  align-content: center;
+  max-width: 36rem;
+}
+.story__quote {
+  font-size: var(--step-3);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.12;
+}
+.story__body {
+  display: grid;
+  gap: 1rem;
+  color: var(--ink-soft);
+}
+.story__signature {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--step-1);
+  color: var(--accent);
+}
+@media (min-width: 56rem) {
+  .story {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+  .story__media {
+    grid-column: 8 / 13;
+    grid-row: 1;
+  }
+  .story__text {
+    grid-column: 2 / 7;
+    grid-row: 1;
+  }
+}
+
+/* ---------- home: visit, like a menu card ---------- */
+.visit {
+  padding-top: var(--section);
+}
+.visit .section-title {
+  font-size: var(--step-4);
+  font-style: italic;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.visit__grid {
+  display: grid;
+  gap: 2.5rem var(--gap);
+}
+.visit__col {
+  text-align: center;
+}
+.visit__label {
+  margin-bottom: 1rem;
+  color: var(--accent);
+}
+.visit__value {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+}
+.visit__list li a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.5rem;
+}
+/* Hours as a menu: day ..... time, with a dotted leader. Rows become flex lines. */
+.hours,
+.hours tbody {
+  display: block;
+  width: 100%;
+  max-width: 20rem;
+  margin-inline: auto;
+}
+.hours tr {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding-block: 0.25rem;
+}
+.hours th {
+  flex: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-weight: 400;
+  text-align: left;
+  text-transform: capitalize;
+}
+.hours th::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px dotted var(--line-strong);
+}
+.hours .is-closed {
+  color: var(--ink-soft);
+}
+.hours .is-today {
+  color: var(--accent);
+}
+.visit__note {
+  margin: 3rem auto 0;
+  max-width: 34rem;
+  text-align: center;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--step-1);
+  color: var(--ink-soft);
+}
+@media (min-width: 56rem) {
+  .visit__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ---------- product page ---------- */
+.pdp {
+  display: grid;
+  gap: 1.5rem;
+}
+.pdp__gallery {
+  margin-inline: calc(var(--gutter) * -1);
+}
+.pdp__info {
+  display: grid;
+  gap: 1.25rem;
+  align-content: start;
+}
+.pdp__name {
+  font-size: var(--step-4);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1;
+}
+.pdp__price {
+  font-size: var(--step-2);
+  color: var(--accent);
+}
+.pdp__summary {
+  font-size: 1.125rem;
+  color: var(--ink-soft);
+}
+.pdp__dispatch {
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+.variant:has(input:checked) {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+.buy__submit {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.buy__submit:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+.buy__stock.is-low {
+  color: var(--accent);
+}
+@media (min-width: 56rem) {
+  .pdp {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--gap);
+    padding-top: 2rem;
+  }
+  .pdp__gallery {
+    grid-column: 1 / 8;
+    margin: 0;
+  }
+  .gallery__thumbs {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  .gallery__thumb {
+    width: 4.5rem;
+  }
+  .gallery__count {
+    display: none;
+  }
+  .pdp__info {
+    grid-column: 9 / 13;
+    position: sticky;
+    top: calc(var(--header-h) + 2rem);
+  }
+}
+.gallery__count {
+  background: var(--paper);
+}
+.related {
+  padding-top: var(--section);
+}
+.related .section-title {
+  margin-bottom: 2rem;
+  text-align: center;
+  font-style: italic;
+}
+
+/* ---------- pages ---------- */
+.page-title {
+  font-style: italic;
+  font-weight: 400;
+}
+.checkout {
+  border: 1px solid var(--line);
+}
+.select {
+  background-color: var(--paper-2);
+}
+.not-found__code {
+  font-style: italic;
+  color: var(--accent);
+}
+.faq__q {
+  font-style: italic;
+}
+
+/* ---------- drawer, menu, footer ---------- */
+.drawer__title {
+  font-style: italic;
+  font-weight: 400;
+}
+.menu__nav a {
+  font-style: italic;
+  font-weight: 400;
+}
+.site-footer__made {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--step-2);
+  line-height: 1.15;
+}
+.site-footer__mark {
+  font-size: clamp(3.5rem, 15vw, 15rem);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  color: var(--accent);
+  text-align: center;
+  padding-bottom: 0.1em;
+}

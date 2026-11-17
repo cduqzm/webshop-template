@@ -146,6 +146,11 @@ em {
 .opening__media .media {
   aspect-ratio: 4 / 5;
 }
+/* The headline overlaps the photo's bottom edge, so the placeholder caption goes to the top. */
+.opening__media .ph__label {
+  top: 0.6rem;
+  bottom: auto;
+}
 /* The headline overlaps the photo's lower edge, set on strips of paper. */
 .opening__line {
   position: relative;

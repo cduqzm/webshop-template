@@ -1614,8 +1614,8 @@ dialog::backdrop {
   *,
   *::before,
   *::after {
-    transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
+    transition: none !important; /* none, not a tiny duration: that would switch transitions ON for every property */
+    animation: none !important;
     scroll-behavior: auto !important;
   }
 }

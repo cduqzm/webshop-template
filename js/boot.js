@@ -7,13 +7,18 @@
   var site = window.SITE;
   var root = document.documentElement;
   var params = new URLSearchParams(location.search);
-  var PRESETS = ["atelier", "market", "workshop"];
-  // Fonts each preset needs first; preloading them avoids text jumping when they arrive.
+  // To add a preset: create presets/<name>.css and list it here with the fonts it needs first.
+  // Preloading those fonts avoids text jumping when they arrive.
   var PRELOAD = {
     atelier: ["newsreader.woff2", "schibsted-grotesk.woff2"],
     market: ["archivo.woff2"],
     workshop: ["plex-mono-400.woff2", "plex-sans.woff2"],
+    nocturne: ["bodoni-moda.woff2", "hanken-grotesk.woff2"],
+    bloom: ["cormorant.woff2", "jost.woff2"],
+    corner: ["young-serif.woff2", "rethink-sans.woff2"],
+    gallery: ["instrument-sans.woff2"],
   };
+  var PRESETS = Object.keys(PRELOAD);
 
   function saved(key) {
     try { return localStorage.getItem(site.id + ":" + key); } catch (e) { return null; }

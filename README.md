@@ -12,8 +12,8 @@ Double-click `index.html`. That's it: it works straight from disk.
 Useful URLs while working:
 
 - `?lang=en` / `?lang=nl`: switch language (the choice is remembered)
-- `?preset=market` / `?preset=workshop`: view another design without changing config
-- `presets.html`: all three designs side by side, for showing a client
+- `?preset=market`, `?preset=nocturne`, …: view another design without changing config
+- `presets.html`: all seven designs side by side, for showing a client
 - `tools/sitemap.html`: generates `sitemap.xml` and `robots.txt` from config
 - `tools/og.html`: the social preview image (see below)
 
@@ -38,7 +38,7 @@ config/site.js        business details, contact, opening hours, features on/off,
 config/products.js    categories and products (prices in cents; names etc. as { nl, en })
 config/posts.js       journal posts (only used when features.blog is on)
 content/nl.js, en.js  every word of interface and page text, per language
-presets/*.css         the three designs: atelier, market, workshop
+presets/*.css         the seven designs: atelier, market, workshop, nocturne, bloom, corner, gallery
 css/base.css          shared structure; uses only the preset's tokens
 js/boot.js            runs first: picks language + preset, loads their files, applies colour overrides
 js/core.js            text lookup, DOM builder, money, opening hours, storage
@@ -114,6 +114,17 @@ and then makes its own layout decisions.
   Food, streetwear, young brands.
 - **Workshop**: IBM Plex Mono + Plex Sans. Calm: hairlines, numbered sections, spec-sheet details.
   Repairs, tech, services, B2B.
+- **Nocturne**: Bodoni Moda + Hanken Grotesk. Dark and moody: brass accents, roman numerals, staggered cards,
+  hours like a menu card. Barbers, tattoo studios, bars, wine shops, record stores.
+- **Bloom**: Cormorant + Jost. Soft and airy: arched photos, an oval portrait, pill buttons, rose and sage.
+  Florists, beauty salons, wellness, bridal, children's shops.
+- **Corner**: Young Serif + Rethink Sans. The friendly corner shop: a scalloped awning, prices on round
+  stickers, hours on a chalkboard. Bakeries, cafés, delis, ice cream shops.
+- **Gallery**: Instrument Sans only. Minimal and photo-led: full-bleed photos, numbered captions, stacked product
+  photos, one red dot for state. Photographers, architects, fashion labels, interior and design studios.
+
+To add a preset: copy the closest one to `presets/<name>.css`, change it, and add the name and its first fonts
+to `PRELOAD` in `js/boot.js` (and to the list in `presets.html`).
 
 Per client you can keep the preset and override `theme.accent` (and optionally `background`, `text`, fonts) in
 `site.js`. When run locally, the console warns if the accent is too light to read as text.

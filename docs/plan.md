@@ -45,6 +45,10 @@ tokens, fonts and layout. `?preset=market` overrides it, which is what `presets.
 | Atelier  | Newsreader (optical sizes, italics) | Schibsted Grotesk | Newsreader's display cuts get sharp at large sizes and its italic carries emphasis; Schibsted is a newspaper grotesk: plain, but with more character than Inter. |
 | Market   | Archivo (width axis, up to 900)     | Archivo           | One family stretched from condensed to extended for loud, dense pages. |
 | Workshop | IBM Plex Mono       | IBM Plex Sans      | Technical and calm, closest to my own v2 site. |
+| Nocturne | Bodoni Moda (optical sizes) | Hanken Grotesk | High-contrast serif reads as "evening" on a dark ground; brass instead of white for accents. |
+| Bloom    | Cormorant           | Jost               | Light, elegant serif with a geometric sans: the classic florist/salon pairing, made specific by arches. |
+| Corner   | Young Serif         | Rethink Sans       | Chunky, warm serif that looks painted on a shop window; a friendly rounded sans for text. |
+| Gallery  | Instrument Sans     | Instrument Sans    | One neutral family with a width axis; small sizes so photos do the talking. |
 
 ## Where I deviate from the brief
 
