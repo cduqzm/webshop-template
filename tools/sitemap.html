@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Sitemap generator</title>
+  <!--
+    Open this file in the browser after filling in config/site.js and config/products.js.
+    It builds sitemap.xml and robots.txt for the current config. Download both and put them
+    in the site's root folder (next to index.html), replacing the old ones. Nothing to install.
+  -->
+  <style>
+    :root { font-family: ui-sans-serif, system-ui, sans-serif; color: #1b1a18; background: #f3f2ee; }
+    * { box-sizing: border-box; }
+    body { max-width: 56rem; margin: 0 auto; padding: 2rem 1rem 4rem; line-height: 1.5; }
+    h1 { font-size: 1.375rem; margin: 0 0 0.25rem; }
+    h2 { font-size: 1rem; margin: 2rem 0 0.5rem; }
+    p { margin: 0 0 1rem; color: #55534e; }
+    textarea { width: 100%; min-height: 16rem; padding: 0.75rem; font: 0.8125rem/1.5 ui-monospace, Menlo, Consolas, monospace; border: 1px solid #c9c6bf; background: #fff; }
+    .row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+    button { min-height: 2.5rem; padding: 0 1rem; border: 0; background: #1b1a18; color: #fff; font: inherit; cursor: pointer; }
+    button.quiet { background: #fff; color: #1b1a18; border: 1px solid #c9c6bf; }
+    .warn { padding: 0.75rem 1rem; background: #ffe58a; color: #1b1a18; }
+  </style>
+  <script src="../config/site.js"></script>
+  <script src="../config/products.js"></script>
+  <script src="../config/posts.js"></script>
+</head>
+<body>
+  <h1>Sitemap generator</h1>
+  <p>Builds <code>sitemap.xml</code> and <code>robots.txt</code> from <code>config/</code>. Download both and replace the files in the site's root folder.</p>
+  <p id="warn" class="warn" hidden></p>
+
+  <h2>sitemap.xml</h2>
+  <textarea id="sitemap" readonly></textarea>
+  <div class="row">
+    <button type="button" data-download="sitemap.xml" data-from="sitemap">Download sitemap.xml</button>
+    <button type="button" class="quiet" data-copy="sitemap">Copy</button>
+  </div>
+
+  <h2>robots.txt</h2>
+  <textarea id="robots" readonly style="min-height:6rem"></textarea>
+  <div class="row">
+    <button type="button" data-download="robots.txt" data-from="robots">Download robots.txt</button>
+    <button type="button" class="quiet" data-copy="robots">Copy</button>
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+      var site = window.SITE;
+      var f = site.features;
+      var base = String(site.url).replace(/\/+$/, "");
+      var today = new Date().toISOString().slice(0, 10);
+
+      if (/\[\[/.test(base)) {
+        var warn = document.getElementById("warn");
+        warn.hidden = false;
+        warn.textContent = "site.url in config/site.js is still a placeholder (" + base + "). Fill it in first, then reload this page.";
+      }
+
+      var pages = ["index.html", "shop.html", "about.html", "contact.html", "terms.html", "privacy.html"];
+      if (f.faq) pages.push("faq.html");
+      if (f.shop) pages.push("shipping.html");
+      if (f.blog) pages.push("blog.html");
+
+      var urls = pages.map(function (p) { return { loc: base + "/" + (p === "index.html" ? "" : p), priority: p === "index.html" ? "1.0" : "0.6" }; });
+      if (f.shop) {
+        window.CATALOG.products.forEach(function (p) {
+          urls.push({ loc: base + "/product.html?id=" + encodeURIComponent(p.id), priority: "0.8", lastmod: p.added });
+        });
+      }
+      if (f.blog && window.POSTS) {
+        window.POSTS.forEach(function (p) {
+          urls.push({ loc: base + "/post.html?id=" + encodeURIComponent(p.id), priority: "0.5", lastmod: p.date });
+        });
+      }
+
+      var esc = function (s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;"); };
+      var xml = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'];
+      urls.forEach(function (u) {
+        xml.push("  <url><loc>" + esc(u.loc) + "</loc><lastmod>" + (u.lastmod || today) + "</lastmod><priority>" + u.priority + "</priority></url>");
+      });
+      xml.push("</urlset>", "");
+      document.getElementById("sitemap").value = xml.join("\n");
+      document.getElementById("robots").value = ["User-agent: *", "Disallow: /tools/", "Disallow: /presets.html", "Disallow: /confirm.html", "", "Sitemap: " + base + "/sitemap.xml", ""].join("\n");
+
+      document.addEventListener("click", function (e) {
+        var b = e.target.closest("button");
+        if (!b) return;
+        if (b.dataset.copy) {
+          navigator.clipboard.writeText(document.getElementById(b.dataset.copy).value);
+          b.textContent = "Copied";
+        }
+        if (b.dataset.download) {
+          var blob = new Blob([document.getElementById(b.dataset.from).value], { type: "text/plain" });
+          var a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = b.dataset.download;
+          a.click();
+          URL.revokeObjectURL(a.href);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

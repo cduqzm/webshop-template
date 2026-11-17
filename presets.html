@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Ontwerpen vergelijken</title>
+  <!--
+    Not linked from the site. Shows the same shop in all three presets, so a client can choose.
+    Each frame loads the real site with ?preset=… and is scaled down to fit its column.
+  -->
+  <style>
+    :root {
+      --bg: #e4e2dd;
+      --ink: #1b1a18;
+      --soft: #5c5a55;
+      --line: rgb(27 26 24 / 0.15);
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+    }
+    * { box-sizing: border-box; margin: 0; }
+    body { padding: 1.5rem clamp(1rem, 3vw, 2.5rem) 3rem; }
+    header { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1rem 2rem; margin-bottom: 1.5rem; }
+    h1 { font-size: 1.25rem; font-weight: 600; }
+    header p { color: var(--soft); font-size: 0.875rem; margin-top: 0.25rem; max-width: 40rem; }
+    .controls { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .group { display: flex; border: 1px solid var(--line); background: #fff; }
+    .group button { min-height: 40px; padding: 0 0.9rem; border: 0; background: none; font: inherit; font-size: 0.8125rem; cursor: pointer; color: var(--soft); }
+    .group button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+    .group button:focus-visible { outline: 2px solid #2251a3; outline-offset: 2px; }
+    .grid { display: grid; gap: 1.25rem; }
+    @media (min-width: 60rem) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    figure { display: grid; gap: 0.6rem; }
+    figcaption { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+    figcaption strong { font-size: 1rem; }
+    figcaption span { color: var(--soft); font-size: 0.8125rem; }
+    figcaption a { font-size: 0.8125rem; color: var(--ink); }
+    .frame { position: relative; overflow: hidden; background: #fff; border: 1px solid var(--line); box-shadow: 0 1px 0 var(--line); }
+    .frame iframe { position: absolute; top: 0; left: 0; border: 0; transform-origin: 0 0; pointer-events: auto; }
+    .note { margin-top: 0.4rem; color: var(--soft); font-size: 0.8125rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1 data-nl="Drie ontwerpen, dezelfde winkel" data-en="Three designs, the same shop"></h1>
+      <p data-nl="Alle tekst, producten en functies zijn hetzelfde; alleen het ontwerp verschilt. Kleuren en lettertypes zijn per ontwerp nog aan te passen." data-en="All text, products and features are the same; only the design differs. Colours and fonts can still be adjusted per design."></p>
+    </div>
+    <div class="controls">
+      <div class="group" role="group" aria-label="Page / Pagina" id="pages">
+        <button type="button" data-page="index.html" data-nl="Home" data-en="Home"></button>
+        <button type="button" data-page="shop.html" data-nl="Winkel" data-en="Shop"></button>
+        <button type="button" data-page="product.html?id=stomp" data-nl="Product" data-en="Product"></button>
+        <button type="button" data-page="about.html" data-nl="Over ons" data-en="About"></button>
+      </div>
+      <div class="group" role="group" aria-label="Language / Taal" id="langs">
+        <button type="button" data-lang="nl">NL</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="grid" id="grid"></div>
+
+  <script>
+    (function () {
+      "use strict";
+      var PRESETS = [
+        { id: "atelier", name: "Atelier", nl: "Redactioneel, warm papier, serif", en: "Editorial, warm paper, serif" },
+        { id: "market", name: "Market", nl: "Luid, kleurvlakken, grote prijzen", en: "Loud, colour blocks, big prices" },
+        { id: "workshop", name: "Workshop", nl: "Rustig, technisch, haarlijnen", en: "Calm, technical, hairlines" },
+      ];
+      var WIDTH = 1366; // each frame renders at this desktop width, then scales down
+      var state = { page: "index.html", lang: "nl" };
+      var grid = document.getElementById("grid");
+      var frames = [];
+
+      PRESETS.forEach(function (p) {
+        var fig = document.createElement("figure");
+        var cap = document.createElement("figcaption");
+        var title = document.createElement("div");
+        var name = document.createElement("strong");
+        name.textContent = p.name + " ";
+        var desc = document.createElement("span");
+        title.append(name, desc);
+        var open = document.createElement("a");
+        open.target = "_blank";
+        cap.append(title, open);
+        var box = document.createElement("div");
+        box.className = "frame";
+        var iframe = document.createElement("iframe");
+        iframe.title = p.name;
+        iframe.loading = "lazy";
+        box.append(iframe);
+        fig.append(cap, box);
+        grid.append(fig);
+        frames.push({ preset: p, box: box, iframe: iframe, desc: desc, open: open });
+      });
+
+      function url(preset) {
+        return state.page + (state.page.indexOf("?") >= 0 ? "&" : "?") + "preset=" + preset + "&lang=" + state.lang;
+      }
+
+      function fit() {
+        frames.forEach(function (f) {
+          var scale = f.box.clientWidth / WIDTH;
+          var height = Math.round(Math.min(window.innerHeight * 1.6, 1500));
+          f.box.style.height = height + "px";
+          f.iframe.style.width = WIDTH + "px";
+          f.iframe.style.height = Math.round(height / scale) + "px";
+          f.iframe.style.transform = "scale(" + scale + ")";
+        });
+      }
+
+      function render() {
+        document.documentElement.lang = state.lang;
+        document.querySelectorAll("[data-" + state.lang + "]").forEach(function (el) {
+          el.textContent = el.getAttribute("data-" + state.lang);
+        });
+        document.querySelectorAll("#pages button").forEach(function (b) {
+          b.setAttribute("aria-pressed", String(b.dataset.page === state.page));
+        });
+        document.querySelectorAll("#langs button").forEach(function (b) {
+          b.setAttribute("aria-pressed", String(b.dataset.lang === state.lang));
+        });
+        frames.forEach(function (f) {
+          f.desc.textContent = f.preset[state.lang];
+          f.open.textContent = state.lang === "nl" ? "Openen ↗" : "Open ↗";
+          f.open.href = url(f.preset.id);
+          f.iframe.src = url(f.preset.id);
+        });
+        fit();
+      }
+
+      document.getElementById("pages").addEventListener("click", function (e) {
+        var b = e.target.closest("button");
+        if (b) { state.page = b.dataset.page; render(); }
+      });
+      document.getElementById("langs").addEventListener("click", function (e) {
+        var b = e.target.closest("button");
+        if (b) { state.lang = b.dataset.lang; render(); }
+      });
+      window.addEventListener("resize", fit);
+      render();
+    })();
+  </script>
+</body>
+</html>

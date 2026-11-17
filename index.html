@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Studio Lont</title>
+  <meta name="description" content="">
+  <!-- Social previews. Per client: replace the name and domain (search all .html files). -->
+  <meta property="og:site_name" content="Studio Lont">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://studiolont.nl/assets/img/og.png">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/base.css">
+  <!-- boot.js picks language and design preset, and loads their files. -->
+  <script src="config/site.js"></script>
+  <script src="js/boot.js"></script>
+  <script src="config/products.js" defer></script>
+  <script src="js/core.js" defer></script>
+  <script src="js/catalog.js" defer></script>
+  <script src="js/cart.js" defer></script>
+  <script src="js/forms.js" defer></script>
+  <script src="js/layout.js" defer></script>
+  <script src="js/pages/home.js" defer></script>
+</head>
+<body data-page="home">
+  <header id="site-header"></header>
+
+  <main id="main" class="home">
+    <!-- Sections can be reordered or switched off with `home` in config/site.js. -->
+
+    <section class="opening" data-section="opening" aria-labelledby="opening-title">
+      <div class="masthead-line">
+        <span data-t="home.opening.kicker"></span>
+        <span data-t="home.opening.since"></span>
+      </div>
+      <div class="opening__grid">
+        <div class="opening__media" data-slot="opening-media"></div>
+        <h1 class="opening__line" id="opening-title"><span data-t="home.opening.line"></span></h1>
+        <div class="opening__aside">
+          <p class="opening__lead" data-t="home.opening.lead"></p>
+          <div data-slot="status"></div>
+          <a class="arrow-link" href="shop.html" data-feature="shop" data-t="home.opening.cta"></a>
+          <a class="arrow-link" href="contact.html" data-feature="!shop" data-t="nav.contact"></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="index" data-section="index" data-feature="shop" aria-labelledby="index-title">
+      <h2 class="section-title" id="index-title" data-t="home.index.title"></h2>
+      <ol class="index__list" role="list" data-slot="index"></ol>
+    </section>
+
+    <section class="featured" data-section="featured" data-feature="shop" aria-labelledby="featured-title">
+      <div class="featured__head">
+        <h2 class="section-title" id="featured-title" data-t="home.featured.title"></h2>
+        <p class="featured__note" data-t="home.featured.note"></p>
+        <a class="arrow-link featured__all" href="shop.html" data-t="home.featured.all"></a>
+      </div>
+      <div class="featured__grid" data-slot="featured"></div>
+    </section>
+
+    <section class="pricelist-section" data-section="pricelist" data-feature="!shop" aria-labelledby="pricelist-title">
+      <h2 class="section-title" id="pricelist-title" data-t="pricelist.title"></h2>
+      <div data-slot="pricelist"></div>
+      <p class="pricelist__vat" data-t="pricelist.note"></p>
+    </section>
+
+    <section class="story" data-section="story" aria-labelledby="story-title">
+      <div class="story__media" data-slot="story-media"></div>
+      <div class="story__text">
+        <h2 class="kicker" id="story-title" data-t="home.story.kicker"></h2>
+        <blockquote class="story__quote"><p data-t="home.story.quote"></p></blockquote>
+        <div class="story__body">
+          <p data-t="home.story.body1"></p>
+          <p data-t="home.story.body2"></p>
+        </div>
+        <p class="story__signature" data-t="home.story.signature"></p>
+        <a class="arrow-link" href="about.html" data-t="home.story.link"></a>
+      </div>
+    </section>
+
+    <section class="newsletter" data-section="newsletter" data-feature="newsletter" aria-labelledby="newsletter-title">
+      <h2 class="section-title" id="newsletter-title" data-t="home.newsletter.title"></h2>
+      <p class="newsletter__body" data-t="home.newsletter.body"></p>
+      <div data-slot="newsletter"></div>
+    </section>
+
+    <section class="instagram" data-section="instagram" data-feature="instagramStrip" aria-labelledby="instagram-title">
+      <div class="instagram__head">
+        <h2 class="section-title" id="instagram-title" data-t="home.instagram.title"></h2>
+        <div data-slot="instagram-link"></div>
+      </div>
+      <div class="instagram__strip" data-slot="instagram"></div>
+    </section>
+
+    <section class="visit" data-section="visit" aria-labelledby="visit-title">
+      <h2 class="section-title" id="visit-title" data-t="home.visit.title"></h2>
+      <div class="visit__grid">
+        <div class="visit__col">
+          <h3 class="visit__label" data-t="home.visit.address"></h3>
+          <div data-slot="address"></div>
+        </div>
+        <div class="visit__col" data-feature="openingHours">
+          <h3 class="visit__label" data-t="hours.title"></h3>
+          <div data-slot="hours"></div>
+        </div>
+        <div class="visit__col">
+          <h3 class="visit__label" data-t="home.visit.contact"></h3>
+          <div data-slot="contact"></div>
+        </div>
+      </div>
+      <p class="visit__note" data-t="home.visit.note"></p>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+  <noscript><p class="noscript">This site needs JavaScript to show its text and products. · Deze site heeft JavaScript nodig.</p></noscript>
+</body>
+</html>
